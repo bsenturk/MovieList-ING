@@ -42,6 +42,7 @@ final class Network {
         urlComponents.scheme = request.scheme
         urlComponents.host = request.host
         urlComponents.path = request.path
+        urlComponents.queryItems = request.queryItems
 
         let url = urlComponents.url!
 

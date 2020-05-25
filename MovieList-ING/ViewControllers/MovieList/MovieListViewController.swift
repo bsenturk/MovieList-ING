@@ -17,12 +17,15 @@ class MovieListViewController: BaseViewController, UICollectionViewDelegate, UIC
     }
 
     private var isGrid: Bool = false
+    private let viewModel = MovieListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         collectionView.backgroundColor = .white
         setupNavigationBar(title: "Contents", imageName: "grid")
+        viewModel.getMovies()
+        setClosures()
     }
 
     private func initializeCollectionView() {
@@ -31,16 +34,25 @@ class MovieListViewController: BaseViewController, UICollectionViewDelegate, UIC
         collectionView.register(MovieCell().instantiateNib(), forCellWithReuseIdentifier: "MovieCell")
     }
 
+    private func setClosures() {
+        viewModel.reloadData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+
     override func rightBarButtonAction() {
         isGrid = !isGrid
         isGrid ? setupRightBarButtonItem(imageName: "list") : setupRightBarButtonItem(imageName: "grid")
+        collectionView.reloadData()
     }
 
 
     //MARK: - Collection View Delegate & Data Source
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.itemsCount()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

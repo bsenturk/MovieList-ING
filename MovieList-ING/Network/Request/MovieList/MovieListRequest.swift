@@ -12,11 +12,22 @@ struct MovieListRequest: RequestType {
 
     typealias Response = PopularMovies
 
+    var parameterQuery: [URLQueryItem] = []
+
     var path: String {
-        return "3/movie/popular"
+        return "/3/movie/popular"
     }
 
-    var httpMethod: HTTPMethod
+    var httpMethod: HTTPMethod {
+        return .get
+    }
 
-    var queryItems: [URLQueryItem]?
+    var queryItems: [URLQueryItem]? {
+        get {
+            parameterQuery
+        }
+        set {
+            parameterQuery = newValue ?? []
+        }
+    }
 }

@@ -27,7 +27,6 @@
 		FA2DA9DD247BB9770003C405 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DA9DC247BB9770003C405 /* BaseViewController.swift */; };
 		FAD5E8A9247BCE5100985E60 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5E8A7247BCE5100985E60 /* MovieCell.swift */; };
 		FAD5E8AA247BCE5100985E60 /* MovieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD5E8A8247BCE5100985E60 /* MovieCell.xib */; };
-		FAD5E8AD247BD30A00985E60 /* UICollectionView+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5E8AC247BD30A00985E60 /* UICollectionView+Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +64,6 @@
 		FA2DA9DC247BB9770003C405 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		FAD5E8A7247BCE5100985E60 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		FAD5E8A8247BCE5100985E60 /* MovieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCell.xib; sourceTree = "<group>"; };
-		FAD5E8AC247BD30A00985E60 /* UICollectionView+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,7 +245,6 @@
 		FAD5E8AB247BD2E000985E60 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				FAD5E8AC247BD30A00985E60 /* UICollectionView+Cell.swift */,
 				FA002E83247BD4F2009E053B /* UIView+Nib.swift */,
 			);
 			path = Extensions;
@@ -359,7 +356,6 @@
 			files = (
 				FA2DA9D2247BB8040003C405 /* Network.swift in Sources */,
 				FA2DA9AC247BB67F0003C405 /* MovieListViewController.swift in Sources */,
-				FAD5E8AD247BD30A00985E60 /* UICollectionView+Cell.swift in Sources */,
 				FAD5E8A9247BCE5100985E60 /* MovieCell.swift in Sources */,
 				FA002E8C247BDBF2009E053B /* PopularMovies.swift in Sources */,
 				FA2DA9A8247BB67F0003C405 /* AppDelegate.swift in Sources */,
