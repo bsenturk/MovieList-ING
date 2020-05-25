@@ -31,6 +31,7 @@ final class MovieDetailViewController: BaseViewController {
     }
 
     private func setupNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = false
         let movie = UserDefaults.standard.object(forKey: "\(id)")
 
         if movie == nil {
@@ -45,9 +46,10 @@ final class MovieDetailViewController: BaseViewController {
 
         if movie == nil {
             userDefaultsMethod(type: .set)
-            return
+        } else {
+            userDefaultsMethod(type: .remove)
         }
-        userDefaultsMethod(type: .remove)
+        NotificationCenter.default.post(name: .didAddMovieToFavorite, object: nil)
     }
 
     private func userDefaultsMethod(type: UserDefaultType) {

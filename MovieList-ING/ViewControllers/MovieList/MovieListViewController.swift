@@ -20,6 +20,7 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
     private let viewModel = MovieListViewModel()
     private var page: Int = 1
     private var popularMovies: [Movie] = []
+    private var selectedIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +28,20 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
         viewModel.getMovies(page: page)
         setClosures()
         setupNavigationBar()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addedMovieToFavorie),
+                                               name: .didAddMovieToFavorite,
+                                               object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+
+    @objc
+    func addedMovieToFavorie() {
+        let indexPath = IndexPath(item: selectedIndex, section: 0)
+        collectionView.reloadItems(at: [indexPath])
     }
 
     private func setupNavigationBar() {
@@ -82,7 +93,6 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
                                                       for: indexPath) as! MovieCell
         cell.movie = viewModel.popularMovies[indexPath.item]
         isGrid ? setCellCornerRadius(cell: cell, radius: 10) : setCellCornerRadius(cell: cell, radius: 0)
-        cell.backgroundColor = .red
         return cell
     }
 
@@ -106,6 +116,7 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
         let movieDetailViewController = MovieDetailViewController(nibName: "MovieDetailViewController",
                                                                   bundle: nil)
         movieDetailViewController.id = viewModel.popularMovies[indexPath.item].id
+        selectedIndex = indexPath.item
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 }

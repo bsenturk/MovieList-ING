@@ -68,6 +68,7 @@
                                 <constraint firstItem="huA-xH-b2y" firstAttribute="leading" secondItem="nHV-Na-0Qp" secondAttribute="leading" id="Mbv-fO-i56"/>
                                 <constraint firstItem="DNO-YG-Dux" firstAttribute="top" secondItem="rr7-lb-8KD" secondAttribute="bottom" constant="20" id="MmY-4f-0iI"/>
                                 <constraint firstItem="0uI-Wa-o1h" firstAttribute="top" secondItem="nHV-Na-0Qp" secondAttribute="top" id="P1c-Wo-ZME"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="huA-xH-b2y" secondAttribute="bottom" constant="20" id="TNF-ZT-dYV"/>
                                 <constraint firstAttribute="trailing" secondItem="0uI-Wa-o1h" secondAttribute="trailing" id="Xa8-tB-miK"/>
                                 <constraint firstItem="0uI-Wa-o1h" firstAttribute="leading" secondItem="nHV-Na-0Qp" secondAttribute="leading" id="Z5R-1P-RsC"/>
                                 <constraint firstItem="taX-ue-w3d" firstAttribute="leading" secondItem="DNO-YG-Dux" secondAttribute="leading" id="ctC-cK-FbK"/>
@@ -81,7 +82,7 @@
                         <constraint firstItem="nHV-Na-0Qp" firstAttribute="width" secondItem="8Tc-QB-UUo" secondAttribute="width" id="0Gb-OX-1UA"/>
                         <constraint firstItem="nHV-Na-0Qp" firstAttribute="top" secondItem="8Tc-QB-UUo" secondAttribute="top" id="BQi-in-hWI"/>
                         <constraint firstAttribute="bottom" secondItem="nHV-Na-0Qp" secondAttribute="bottom" id="FVD-G0-PP2"/>
-                        <constraint firstItem="nHV-Na-0Qp" firstAttribute="height" secondItem="8Tc-QB-UUo" secondAttribute="height" id="PaK-Su-i45"/>
+                        <constraint firstItem="nHV-Na-0Qp" firstAttribute="height" secondItem="8Tc-QB-UUo" secondAttribute="height" priority="1" id="PaK-Su-i45"/>
                         <constraint firstAttribute="trailing" secondItem="nHV-Na-0Qp" secondAttribute="trailing" id="TwS-cF-aB2"/>
                         <constraint firstItem="nHV-Na-0Qp" firstAttribute="leading" secondItem="8Tc-QB-UUo" secondAttribute="leading" id="sZV-TA-W9t"/>
                     </constraints>
