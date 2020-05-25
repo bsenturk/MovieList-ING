@@ -14,4 +14,22 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
+
+    func setupNavigationBar(title: String, imageName: String) {
+        navigationItem.title = title
+        setupRightBarButtonItem(imageName: imageName)
+    }
+
+    func setupRightBarButtonItem(imageName: String) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: imageName),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(rightBarButtonAction))
+    }
+
+
+    @objc
+    func rightBarButtonAction() {
+        
+    }
 }

@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieListViewController" customModule="MovieList_ING" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="mhQ-gg-Hbf" id="y7q-3a-2U8"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hZl-gO-StW"/>
             </connections>
         </placeholder>
@@ -16,7 +17,25 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mhQ-gg-Hbf">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uee-bI-ghG">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="mhQ-gg-Hbf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Dmr-on-9l9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mhQ-gg-Hbf" secondAttribute="trailing" id="MvE-Lu-2rG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mhQ-gg-Hbf" secondAttribute="bottom" id="f5M-sI-KyI"/>
+                <constraint firstItem="mhQ-gg-Hbf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="oDm-Ey-xet"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="139" y="90"/>
         </view>
