@@ -8,11 +8,25 @@
 
 import UIKit
 
-class MovieDetailViewController: BaseViewController {
+final class MovieDetailViewController: BaseViewController {
+
+    @IBOutlet weak var movieImageView: UIImageView!
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var releaseLabel: UILabel!
+
+    private let viewModel = MovieDetailViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.getMovieDetail(with: "")
+        setClosures()
+    }
 
+    private func setClosures() {
+        viewModel.updatePage = { [weak self] movie in
+            
+        }
     }
 
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MovieListViewModel {
+final class MovieListViewModel {
 
     let network = Network()
 

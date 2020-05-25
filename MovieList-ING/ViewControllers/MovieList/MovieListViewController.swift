@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieListViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class MovieListViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -58,6 +58,7 @@ class MovieListViewController: BaseViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell",
                                                       for: indexPath) as! MovieCell
+        cell.movie = viewModel.popularMovies?.results[indexPath.item]
         cell.backgroundColor = .red
         return cell
     }

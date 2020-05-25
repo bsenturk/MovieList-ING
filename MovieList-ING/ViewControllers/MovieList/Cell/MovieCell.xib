@@ -60,6 +60,10 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="418" height="123"/>
+            <connections>
+                <outlet property="movieImageView" destination="dBD-XT-WyQ" id="QKt-84-4rE"/>
+                <outlet property="movieTitle" destination="iSn-pj-sxV" id="pmZ-M0-VdB"/>
+            </connections>
             <point key="canvasLocation" x="129" y="98"/>
         </collectionViewCell>
     </objects>
