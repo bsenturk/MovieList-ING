@@ -12,11 +12,15 @@ final class MovieListViewModel {
 
     let network = Network()
 
-    var popularMovies: PopularMovies?
+    var popularMovies: [Movie] = [] {
+        didSet {
+            reloadData?()
+        }
+    }
 
     var reloadData: (()->())?
 
-    func getMovies(page: Int = 1) {
+    func getMovies(page: Int) {
         var movieListRequest = MovieListRequest()
         let parameterDict: [String: String] = [
             "language": "en-US",
@@ -32,8 +36,7 @@ final class MovieListViewModel {
             switch result {
             case .success(let movies):
                 let popularMovies = movies as! PopularMovies
-                self?.popularMovies = popularMovies
-                self?.reloadData?()
+                self?.popularMovies.append(contentsOf: popularMovies.results)
             case .failure(let error):
                 print(error)
             }
@@ -41,6 +44,6 @@ final class MovieListViewModel {
     }
 
     func itemsCount() -> Int {
-        return popularMovies?.results.count ?? 0
+        return popularMovies.count
     }
 }

@@ -18,14 +18,32 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
 
     private var isGrid: Bool = false
     private let viewModel = MovieListViewModel()
+    private var page: Int = 1
+    private var popularMovies: [Movie] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         collectionView.backgroundColor = .white
-        setupNavigationBar(title: "Contents", imageName: "grid")
-        viewModel.getMovies()
+        viewModel.getMovies(page: page)
         setClosures()
+        setupNavigationBar()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    private func setupNavigationBar() {
+        setupNavigationBar(title: "Contents", imageName: "grid")
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.backgroundColor = .darkGray
+        navigationController?.navigationBar.barTintColor = .darkGray
+        navigationController?.navigationBar.isTranslucent = false
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
     }
 
     private func initializeCollectionView() {
@@ -48,6 +66,10 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
         collectionView.reloadData()
     }
 
+    private func setCellCornerRadius(cell: UICollectionViewCell, radius: CGFloat) {
+        cell.layer.cornerRadius = radius
+    }
+
 
     //MARK: - Collection View Delegate & Data Source
 
@@ -58,18 +80,54 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell",
                                                       for: indexPath) as! MovieCell
-        cell.movie = viewModel.popularMovies?.results[indexPath.item]
+        cell.movie = viewModel.popularMovies[indexPath.item]
+        isGrid ? setCellCornerRadius(cell: cell, radius: 10) : setCellCornerRadius(cell: cell, radius: 0)
         cell.backgroundColor = .red
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return isGrid ? CGSize(width: UIScreen.main.bounds.size.width / 2 - 20,
+                               height: 300) : CGSize(width: view.frame.width, height: 150)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return isGrid ? UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10) : .zero
+    }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return isGrid ? CGSize(width: 150, height: 200) : CGSize(width: view.frame.width, height: 150)
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == viewModel.popularMovies.count - 1 {
+            page += 1
+            viewModel.getMovies(page: page)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movieDetailViewController = MovieDetailViewController(nibName: "MovieDetailViewController",
+                                                                  bundle: nil)
+        movieDetailViewController.id = viewModel.popularMovies[indexPath.item].id
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
+    }
+}
+
+//MARK: - Search Controller Delegate
+
+extension MovieListViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        if popularMovies.isEmpty {
+            popularMovies = viewModel.popularMovies
+        }
+        if searchController.searchBar.text != "" {
+            let filteredmovies = viewModel.popularMovies.filter { $0.title.contains(searchController.searchBar.text ?? "")
+            }
+            viewModel.popularMovies = filteredmovies
+        } else {
+            viewModel.popularMovies = popularMovies
+        }
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            viewModel.popularMovies = popularMovies
     }
 }
 

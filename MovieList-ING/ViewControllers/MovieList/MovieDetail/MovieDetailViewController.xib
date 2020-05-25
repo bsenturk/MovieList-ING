@@ -9,6 +9,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieDetailViewController" customModule="MovieList_ING" customModuleProvider="target">
             <connections>
+                <outlet property="movieImageView" destination="0uI-Wa-o1h" id="mxC-rW-98a"/>
+                <outlet property="movieTitleLabel" destination="rr7-lb-8KD" id="4mC-ab-0zt"/>
+                <outlet property="overviewLabel" destination="DNO-YG-Dux" id="OAt-4w-5lT"/>
+                <outlet property="releaseLabel" destination="taX-ue-w3d" id="93d-BX-wgc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

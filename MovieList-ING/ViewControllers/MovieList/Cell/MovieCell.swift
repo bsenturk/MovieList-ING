@@ -12,6 +12,7 @@ class MovieCell: UICollectionViewCell {
 
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var favoriteImageView: UIImageView!
 
     var movie: Movie? {
         didSet {
@@ -23,12 +24,24 @@ class MovieCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
+    enum ImageType: String {
+        case none
+        case starFill
+    }
+
     private func updateCell() {
-        let url = URL(string: Constants.PosterURL.poster("\(400)",
-            movie?.poster ?? "").url)
+        let url = URL(string: Constants.PosterURL.poster("400", movie?.poster ?? "").url)
         movieImageView.setImage(url: url)
 
         movieTitle.text = movie?.title
+
+        let isFavorite = UserDefaults.standard.object(forKey: "\(movie?.id ?? 0)")
+
+        isFavorite == nil ? setStarImage(imageType: .none) : setStarImage(imageType: .starFill)
+    }
+
+    private func setStarImage(imageType: ImageType) {
+        favoriteImageView.image = UIImage(named: imageType.rawValue)
     }
 
 }
