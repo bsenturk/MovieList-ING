@@ -34,10 +34,6 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
                                                object: nil)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     @objc
     func addedMovieToFavorie() {
         let indexPath = IndexPath(item: selectedIndex, section: 0)

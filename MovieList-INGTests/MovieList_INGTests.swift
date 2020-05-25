@@ -11,17 +11,44 @@ import XCTest
 
 class MovieList_INGTests: XCTestCase {
 
+    var movieListViewModel: MovieListViewModel!
+    var movieDetailViewModel: MovieDetailViewModel!
+
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        movieListViewModel = MovieListViewModel()
+        movieDetailViewModel = MovieDetailViewModel()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        movieListViewModel = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGetPopularMovies() throws {
+        let expectation = XCTestExpectation(description: "Get popular movies")
+        movieListViewModel.getMovies(page: 1)
+
+        movieListViewModel.reloadData = {
+            if self.movieListViewModel.popularMovies.isEmpty {
+                XCTAssertNil("Nil")
+            } else {
+                XCTAssertEqual(self.movieListViewModel.popularMovies.count,
+                               20)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10)
+    }
+
+    func testMovieDetail() throws {
+        let expectation = XCTestExpectation(description: "Get detail of movie")
+
+        movieDetailViewModel.getMovieDetail(with: "419704")
+
+        movieDetailViewModel.updatePage = { movie in
+            XCTAssertEqual(movie.title, "Ad Astra")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10)
     }
 
     func testPerformanceExample() throws {
