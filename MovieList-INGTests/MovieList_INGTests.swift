@@ -21,6 +21,7 @@ class MovieList_INGTests: XCTestCase {
 
     override func tearDownWithError() throws {
         movieListViewModel = nil
+        movieDetailViewModel = nil
     }
 
     func testGetPopularMovies() throws {
@@ -49,6 +50,12 @@ class MovieList_INGTests: XCTestCase {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 10)
+    }
+
+    func testBackupMovies() throws {
+        let backupMovie = movieListViewModel.backupMovies.first { $0.title == "Ad Astra" }
+        let popularMovie = movieListViewModel.popularMovies.first { $0.title == "Ad Astra" }
+        XCTAssertEqual(backupMovie?.title, popularMovie?.title)
     }
 
     func testPerformanceExample() throws {

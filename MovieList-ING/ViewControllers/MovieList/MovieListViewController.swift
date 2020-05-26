@@ -50,6 +50,7 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
     }
 
@@ -95,7 +96,7 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return isGrid ? CGSize(width: UIScreen.main.bounds.size.width / 2 - 20,
-                               height: 300) : CGSize(width: view.frame.width, height: 150)
+                               height: 300) : CGSize(width: view.frame.width, height: 250)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -120,18 +121,18 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
 
 //MARK: - Search Controller Delegate
 
-extension MovieListViewController: UISearchResultsUpdating {
+extension MovieListViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        if searchController.searchBar.text == "" {
-            viewModel.popularMovies = viewModel.backupMovies
-            return
+        if searchController.searchBar.text != "" {
+            let filteredMovies = viewModel.backupMovies.filter {
+                $0.title.contains(searchController.searchBar.text ?? "")
+            }
+            viewModel.popularMovies = filteredMovies
         }
+    }
 
-        let filteredMovies = viewModel.backupMovies.filter {
-            $0.title.contains(searchController.searchBar.text ?? "")
-        }
-
-        viewModel.popularMovies = filteredMovies
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.popularMovies = viewModel.backupMovies
     }
 }
 
