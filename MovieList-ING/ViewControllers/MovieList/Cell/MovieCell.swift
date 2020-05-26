@@ -22,6 +22,7 @@ class MovieCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = .black
     }
 
     enum ImageType: String {

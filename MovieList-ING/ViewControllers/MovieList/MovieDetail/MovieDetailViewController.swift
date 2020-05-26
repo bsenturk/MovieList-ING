@@ -25,13 +25,13 @@ final class MovieDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLodingIndicator()
         setupNavigationBar()
         viewModel.getMovieDetail(with: "\(id)")
         setClosures()
     }
 
     private func setupNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = false
         let movie = UserDefaults.standard.object(forKey: "\(id)")
 
         if movie == nil {
@@ -71,6 +71,7 @@ final class MovieDetailViewController: BaseViewController {
                 self?.movieTitleLabel.text = movie.title
                 self?.overviewLabel.text = movie.overview
                 self?.releaseLabel.text = self?.formatReleaseDate(date: movie.releaseDate)
+                self?.hideLoadingIndicator()
             }
         }
     }

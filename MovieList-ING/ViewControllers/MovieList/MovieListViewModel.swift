@@ -18,6 +18,8 @@ final class MovieListViewModel {
         }
     }
 
+    var backupMovies: [Movie] = []
+
     var reloadData: (()->())?
 
     func getMovies(page: Int) {
@@ -37,6 +39,7 @@ final class MovieListViewModel {
             case .success(let movies):
                 let popularMovies = movies as! PopularMovies
                 self?.popularMovies.append(contentsOf: popularMovies.results)
+                self?.backupMovies.append(contentsOf: popularMovies.results)
             case .failure(let error):
                 print(error)
             }

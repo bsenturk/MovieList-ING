@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIImageView {
+
     func setImage(url: URL?) {
         guard let url = url else { return }
 
@@ -16,14 +17,18 @@ extension UIImageView {
 
             if let error = error {
                 print(error)
+                return
             }
-
-            guard let data = data else { return }
 
             DispatchQueue.main.async {
-                self.image = UIImage(data: data)
+                if let data = data {
+                    let imageCache = NSCache<NSString, UIImage>()
+                    if let downloadedImage = UIImage(data: data) {
+                    imageCache.setObject(downloadedImage, forKey: NSString(string: "\(url)"))
+                    self.image = downloadedImage
+                    }
+                }
             }
-
         }.resume()
     }
 }

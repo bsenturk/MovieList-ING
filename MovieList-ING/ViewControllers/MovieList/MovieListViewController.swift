@@ -24,6 +24,7 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLodingIndicator()
         collectionView.backgroundColor = .white
         viewModel.getMovies(page: page)
         setClosures()
@@ -42,14 +43,13 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
 
     private func setupNavigationBar() {
         setupNavigationBar(title: "Contents", imageName: "grid")
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.backgroundColor = .darkGray
         navigationController?.navigationBar.barTintColor = .darkGray
         navigationController?.navigationBar.isTranslucent = false
         let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
     }
 
@@ -62,6 +62,7 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
     private func setClosures() {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
+                self?.hideLoadingIndicator()
                 self?.collectionView.reloadData()
             }
         }
@@ -119,22 +120,18 @@ final class MovieListViewController: BaseViewController, UICollectionViewDelegat
 
 //MARK: - Search Controller Delegate
 
-extension MovieListViewController: UISearchResultsUpdating, UISearchBarDelegate {
+extension MovieListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        if popularMovies.isEmpty {
-            popularMovies = viewModel.popularMovies
+        if searchController.searchBar.text == "" {
+            viewModel.popularMovies = viewModel.backupMovies
+            return
         }
-        if searchController.searchBar.text != "" {
-            let filteredmovies = viewModel.popularMovies.filter { $0.title.contains(searchController.searchBar.text ?? "")
-            }
-            viewModel.popularMovies = filteredmovies
-        } else {
-            viewModel.popularMovies = popularMovies
-        }
-    }
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            viewModel.popularMovies = popularMovies
+        let filteredMovies = viewModel.backupMovies.filter {
+            $0.title.contains(searchController.searchBar.text ?? "")
+        }
+
+        viewModel.popularMovies = filteredMovies
     }
 }
 
